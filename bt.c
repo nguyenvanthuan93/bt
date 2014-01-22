@@ -159,12 +159,12 @@ int parse(char*buff,char *part[])
 }
 
 int main()
-{   int chon;
+{       int chon;
   	FILE *f;
   	treetype root=NULL;
   	treetype stopw=NULL;
-  	stopw=tucam(stopw);
-  	root=dem(f,"vanban.txt",root,stopw);
+  	stopw=bannedword(stopw);
+  	root=count(f,"vanban.txt",root,stopw);
 	printftree(root);
   	freetree(root);
   	freetree(stopw);
