@@ -1,15 +1,13 @@
-bt
-==
-/* Nguyen Van Thuan-20112294 */
+/*Nguyen Van Thuan-20112294*/
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
 #include<ctype.h>
 typedef struct
 {
-  char name[90];
+  char name[81];
   int dem;
-  char dong[10000];
+  char dong[20000];
 }data;
 
 
@@ -88,7 +86,7 @@ void chuanhoa(char s[])
 	      for(i=0;i<strlen(s);i++) s[i]=s[i+1];
  	s[0]=tolower(s[0]);
 }
-treetype bannedword(treetype root){
+treetype tucam(treetype root){
 	elementtype el;
 	FILE *f;
 	char s[81];
@@ -106,18 +104,18 @@ treetype bannedword(treetype root){
 }
 
 char* itostr(int num){
-  char buf[5];
+  char buf[10];
   sprintf(buf,"%d",num);
   char * buff=(char*)malloc((strlen(buf)+1)*sizeof(char));
   strcpy(buff,buf);
   return buff;
 }
-treetype count(FILE *f,char name[],treetype root,treetype stopw)
+treetype dem(FILE *f,char name[],treetype root,treetype stopw)
 {
   elementtype el;
   char s[255];
   char temp[81];
-  char *part[30];
+  char *part[100];
   int i;
   int dong=0;
   if((f=fopen(name,"r"))==NULL)
@@ -137,9 +135,9 @@ treetype count(FILE *f,char name[],treetype root,treetype stopw)
 			chuanhoa(el.name);
 			strcpy(el.dong,",");
 			char*tmp=itostr(dong);
-			printf("%d,%s\n",dong,tmp);
+
  			strcpy(&el.dong[1],tmp);
-			if(strcmp(el.name,"\0")!=0&&(Search(el.name,stopw)==NULL))InsertNode(el,&root);
+			if(strcmp(el.name,"\0")!=0&&(Search(el.name,stopw)==NULL))InsertNode(el,&root);printf("%d\n",dong);
     }}}
   fclose(f);
 	return root;
@@ -159,12 +157,17 @@ int parse(char*buff,char *part[])
 }
 
 int main()
-{       int chon;
+{   char name[20];
+    int chon;
+
   	FILE *f;
   	treetype root=NULL;
   	treetype stopw=NULL;
-  	stopw=bannedword(stopw);
-  	root=count(f,"vanban.txt",root,stopw);
+  	stopw=tucam(stopw);
+  	printf("Input file: ");
+	scanf("%s",name);
+  	stopw=tucam(stopw);
+  	root=dem(f,name,root,stopw);
 	printftree(root);
   	freetree(root);
   	freetree(stopw);
