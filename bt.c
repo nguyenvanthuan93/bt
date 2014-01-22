@@ -7,9 +7,9 @@ bt
 #include<ctype.h>
 typedef struct
 {
-  char name[81];
+  char name[90];
   int dem;
-  char dong[30];
+  char dong[40];
 }data;
 
 
